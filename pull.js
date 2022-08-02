@@ -1,0 +1,83 @@
+function folderVerify(subdir, dir = '') {
+    let pathToUse = dir != '' ? actualPath + dir : actualPath;
+    subdir.forEach(element => {
+        try { fs.rmSync(pathToUse + '/' + element, {recursive: true, force: true}); } catch(err) {}
+        fs.mkdirSync(pathToUse + '/' + element)
+    });
+}
+
+module.exports = {
+    downloadTheme: async () => {
+        if (!fs.existsSync('./sys/sys.json')) throw 'Não foi encontrado tema configurado nesta pasta!'.yellow.bold
+
+        let objConfig = JSON.parse(fs.readFileSync('./sys/sys.json').toString());
+
+        let TOKEN = objConfig.token
+        console.log('\nInciando o Download da Nuvem utilizando o token', TOKEN.bold)
+
+        folderVerify(['layout', 'public']);
+        folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], '/layout')
+        folderVerify(['css', 'js'], '/public')
+
+        try {
+            let response = await axios(wsEndpoint + 'lojas/dados/dadoslayout/?TOKEN=' + TOKEN)
+    
+            if (response.status != 200) throw 'Não foi possível baixar o layout, ' + response.status
+    
+            let objJ = response.data
+    
+            if (!objJ.preferencias) throw 'Não foi possível ler as preferências';
+    
+            fs.writeFileSync('./layout/include/barra.html', objJ.barra);
+            fs.writeFileSync('./layout/include/complemento.html', objJ.complemento);
+            fs.writeFileSync('./layout/include/topo.html', objJ.topo);
+            fs.writeFileSync('./layout/include/rodape.html', objJ.rodape);
+            fs.writeFileSync('./layout/include/direita.html', objJ.direita);
+            fs.writeFileSync('./layout/include/esquerda.html', objJ.esquerda);
+    
+            fs.writeFileSync('./layout/include/add_tags/head.html', objJ.head);
+            fs.writeFileSync('./layout/include/add_tags/body.html', objJ.body);
+    
+            fs.writeFileSync('./layout/assets/folha.css', objJ.folha);
+            fs.writeFileSync('./public/css/cssBase.css', objJ.cssBase);
+            fs.writeFileSync('./layout/assets/functions.js', objJ.js);
+    
+            fs.writeFileSync('./layout/estrutura_index.html', objJ.index);
+            fs.writeFileSync('./layout/estrutura_listagem.html', objJ.listagem);
+            fs.writeFileSync('./layout/estrutura_pagina_produto.html', objJ.produto_detalhe);
+            fs.writeFileSync('./layout/estrutura_outras_paginas.html', objJ.sem_direita);
+
+            fs.copyFileSync(__dirname + '/includes.html', './public/includes.html');
+    
+            let modulos_loja_min = [];
+    
+            if (objJ.preferencias.modulos_loja) {
+                for (var i = 0; i < objJ.preferencias.modulos_loja.length; i++) {
+                    let moduloNome = objJ.preferencias.modulos_loja[i].nome,
+                        moduloEtapa = objJ.preferencias.modulos_loja[i].etapa,
+                        moduloHtml = objJ.preferencias.modulos_loja[i].moduloHtml,
+                        moduloCss = objJ.preferencias.modulos_loja[i].moduloCss,
+                        moduloJs = objJ.preferencias.modulos_loja[i].moduloJs;
+    
+                    if (!fs.existsSync("./layout/modulos_loja/" + moduloNome)) fs.mkdirSync("./layout/modulos_loja/" + moduloNome);
+    
+                    fs.writeFileSync("./layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".js", moduloJs);
+                    fs.writeFileSync("./layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".css", moduloCss);
+                    fs.writeFileSync("./layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".html", moduloHtml);
+    
+                    modulos_loja_min.push({ nome: moduloNome, etapa: moduloEtapa });
+                }
+            }
+    
+            objJ.preferencias.modulos_loja = modulos_loja_min;
+
+            fs.writeFileSync('./layout/config/config.json', JSON.stringify(objJ.preferencias));
+    
+            let data = new Date();
+            objConfig.ultimoPull = data.getDate() + "/" + data.getMonth() + "/" + data.getFullYear() + " " + data.getHours() + "h" + data.getMinutes() + "m" + data.getSeconds();
+            fs.writeFileSync('./sys/sys.json', JSON.stringify(objConfig));
+    
+            console.log("Download feito com sucesso. ".green.bold + "Execute " + '(node app)'.bold + " para iniciar o projeto agora.\n");
+        } catch (e) { console.log(e); }
+    }
+}
