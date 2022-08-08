@@ -160,17 +160,18 @@ function htmlModulos() {
         result = ajustaUrlsAssets(result);
 
         if (configJs.modulos) {
-            for (var i = 0; i < configJs.modulos.length; i++) {
+            for (let i = 0; i < configJs.modulos.length; i++) {
+                let actualMod = configJs.modulos[i];
 
                 if (configJs.modulos[i].etapa.indexOf(etapaAtual) >= 0 || configJs.modulos[i].etapa == "*") {
-                    var tag = createTag(configJs.modulos[i], "padrao");
-                    var moduloHtml = getModuloHtml(configJs.modulos[i], "padrao");
+                    let tag = createTag(actualMod, "padrao");
+                    let moduloHtml = getModuleString(actualMod, 'html', 'padrao');
                     result = result.replace(tag, moduloHtml);
 
-                    var moduloCss = getModuloCss(configJs.modulos[i], "padrao");
+                    let moduloCss = getModuleString(actualMod, 'css', 'padrao')
                     css += moduloCss;
 
-                    var moduloJs = getModuloJs(configJs.modulos[i], "padrao");
+                    let moduloJs = getModuleString(actualMod, 'js', 'padrao');
                     js += moduloJs + '\n';
                 }
 
@@ -178,18 +179,19 @@ function htmlModulos() {
         }
 
         if (configJs.modulos_loja) {
-            for (var i = 0; i < configJs.modulos_loja.length; i++) {
+            for (let i = 0; i < configJs.modulos_loja.length; i++) {
+                let actualMod = configJs.modulos_loja[i];
 
-                if (configJs.modulos_loja[i].etapa.indexOf(etapaAtual) >= 0 || configJs.modulos_loja[i].etapa == "*") {
+                if (actualMod.etapa.indexOf(etapaAtual) >= 0 || actualMod.etapa == "*") {
 
-                    var tag = createTag(configJs.modulos_loja[i]);
-                    var moduloHtml = getModuloHtml(configJs.modulos_loja[i], "loja");
+                    let tag = createTag(actualMod);
+                    let moduloHtml = getModuleString(actualMod, 'html', 'loja');
                     result = result.replace(tag, moduloHtml);
 
-                    var moduloCss = getModuloCss(configJs.modulos_loja[i], "loja");
+                    let moduloCss = getModuleString(actualMod, 'css', 'loja')
                     css += moduloCss;
 
-                    var moduloJs = getModuloJs(configJs.modulos_loja[i], "loja");
+                    let moduloJs = getModuleString(actualMod, 'js', 'loja');
                     js += moduloJs + '\n';
 
                 }
@@ -275,17 +277,17 @@ function htmlModulosTagsHtml(conteudo) {
     try {
 
         if (configJs.modulos) {
-            for (var i = 0; i < configJs.modulos.length; i++) {
-                var tag = createTag(configJs.modulos[i], "padrao");
-                var moduloHtml = getModuloHtml(configJs.modulos[i], "padrao");
+            for (let i = 0; i < configJs.modulos.length; i++) {
+                let tag = createTag(configJs.modulos[i], "padrao");
+                let moduloHtml = getModuleString(configJs.modulos[i], 'html', 'padrao');
                 conteudo = conteudo.replace(tag, moduloHtml);
             }
         }
 
         if (configJs.modulos_loja) {
-            for (var i = 0; i < configJs.modulos_loja.length; i++) {
-                var tag = createTag(configJs.modulos_loja[i]);
-                var moduloHtml = getModuloHtml(configJs.modulos_loja[i], "loja");
+            for (let i = 0; i < configJs.modulos_loja.length; i++) {
+                let tag = createTag(configJs.modulos_loja[i]);
+                let moduloHtml = getModuleString(configJs.modulos_loja[i], 'html', 'loja');
                 conteudo = conteudo.replace(tag, moduloHtml);
             }
         }
@@ -299,53 +301,16 @@ function htmlModulosTagsHtml(conteudo) {
 
 }
 
-function getModuloHtml(modulo, tipo) {
-    var caminho = "";
-    if (tipo == "padrao") {
-        caminho = './sys/modulos_padroes/' + modulo.nome + '/' + modulo.versao + '/' + modulo.nome + '.html';
-    } else {
-        caminho = './layout/modulos_loja/' + modulo.nome + '/' + modulo.nome + '.html';
-    }
-    try {
-        var retorno = fs.readFileSync(caminho).toString();
-        return retorno
-    } catch (e) {
-        //console.log("Trying to get " + modulo.nome + " - " + tipo);
-        //console.log(e.message);
-        return ""
-    }
-}
+function getModuleString(mod, format, type) {
+  let path = './sys/default-modules/' + mod.nome + '/' + mod.versao + '/' + mod.nome + '.' + format;
 
-function getModuloCss(modulo, tipo) {
-    var caminho = "";
-    if (tipo == "padrao") {
-        caminho = './sys/modulos_padroes/' + modulo.nome + '/' + modulo.versao + '/' + modulo.nome + '.css';
-    } else {
-        caminho = './layout/modulos_loja/' + modulo.nome + '/' + modulo.nome + '.css';
-    }
+  if (type != "padrao") path = './layout/modulos_loja/' + mod.nome + '/' + mod.nome + '.' + format;
 
-    try {
-        var retorno = fs.readFileSync(caminho).toString();
-        return retorno
-    } catch (e) {
-        return ""
-    }
-}
-
-function getModuloJs(modulo, tipo) {
-    var caminho = "";
-    if (tipo == "padrao") {
-        caminho = './sys/modulos_padroes/' + modulo.nome + '/' + modulo.versao + '/' + modulo.nome + '.js';
-    } else {
-        caminho = './layout/modulos_loja/' + modulo.nome + '/' + modulo.nome + '.js';
-    }
-
-    try {
-        var retorno = fs.readFileSync(caminho).toString();
-        return retorno
-    } catch (e) {
-        return ""
-    }
+  try {
+      return fs.readFileSync(path).toString();
+  } catch (e) {
+      return ""
+  }
 }
 
 function createTag(modulo, tipo) {
