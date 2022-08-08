@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
-    "cheerio": "^1.0.0-rc.12",
     "colors": "^1.4.0",
     "live-server": "^1.2.2",
     "yargs": "^17.5.1"

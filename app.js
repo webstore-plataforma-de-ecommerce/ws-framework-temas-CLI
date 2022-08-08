@@ -1,5 +1,3 @@
-const cheerio = require('cheerio');
-
 let pageURL = "";
 let result;
 let objJ;
@@ -88,11 +86,10 @@ function compileAll(vrf) {
     function showPage_step2(bodyPage) {
 
         try {
-            
+            bodyPage = bodyPage.replace(/_s3cdn_.js/gi, '')
 
-            const $ = cheerio.load(bodyPage);
-            etapaAtual = $('#HdEtapaLoja').val();
-    
+            let etapaAtual = new RegExp('HdEtapaLoja(.*?)value=(\'|")(.*?)(\'|")', 'gm').exec(bodyPage)[3];
+
             LOJA = objJ.loja;
     
             logo = logo.replace("##CAMINHOLOGO##", "http://images.webstore.net.br/files/" + LOJA + "/" + objJ.logotipo);
@@ -165,13 +162,13 @@ function htmlModulos() {
 
                 if (configJs.modulos[i].etapa.indexOf(etapaAtual) >= 0 || configJs.modulos[i].etapa == "*") {
                     let tag = createTag(actualMod, "padrao");
-                    let moduloHtml = getModuleString(actualMod, 'html', 'padrao');
+                    let moduloHtml = getModuleString(actualMod, 'html');
                     result = result.replace(tag, moduloHtml);
 
-                    let moduloCss = getModuleString(actualMod, 'css', 'padrao')
+                    let moduloCss = getModuleString(actualMod, 'css')
                     css += moduloCss;
 
-                    let moduloJs = getModuleString(actualMod, 'js', 'padrao');
+                    let moduloJs = getModuleString(actualMod, 'js');
                     js += moduloJs + '\n';
                 }
 
@@ -185,13 +182,13 @@ function htmlModulos() {
                 if (actualMod.etapa.indexOf(etapaAtual) >= 0 || actualMod.etapa == "*") {
 
                     let tag = createTag(actualMod);
-                    let moduloHtml = getModuleString(actualMod, 'html', 'loja');
+                    let moduloHtml = getModuleString(actualMod, 'html', 'custom');
                     result = result.replace(tag, moduloHtml);
 
-                    let moduloCss = getModuleString(actualMod, 'css', 'loja')
+                    let moduloCss = getModuleString(actualMod, 'css', 'custom')
                     css += moduloCss;
 
-                    let moduloJs = getModuleString(actualMod, 'js', 'loja');
+                    let moduloJs = getModuleString(actualMod, 'js', 'custom');
                     js += moduloJs + '\n';
 
                 }
@@ -279,7 +276,7 @@ function htmlModulosTagsHtml(conteudo) {
         if (configJs.modulos) {
             for (let i = 0; i < configJs.modulos.length; i++) {
                 let tag = createTag(configJs.modulos[i], "padrao");
-                let moduloHtml = getModuleString(configJs.modulos[i], 'html', 'padrao');
+                let moduloHtml = getModuleString(configJs.modulos[i], 'html');
                 conteudo = conteudo.replace(tag, moduloHtml);
             }
         }
@@ -287,7 +284,7 @@ function htmlModulosTagsHtml(conteudo) {
         if (configJs.modulos_loja) {
             for (let i = 0; i < configJs.modulos_loja.length; i++) {
                 let tag = createTag(configJs.modulos_loja[i]);
-                let moduloHtml = getModuleString(configJs.modulos_loja[i], 'html', 'loja');
+                let moduloHtml = getModuleString(configJs.modulos_loja[i], 'html', 'custom');
                 conteudo = conteudo.replace(tag, moduloHtml);
             }
         }
@@ -301,15 +298,15 @@ function htmlModulosTagsHtml(conteudo) {
 
 }
 
-function getModuleString(mod, format, type) {
+function getModuleString(mod, format, type = 'padrao') {
   let path = './sys/default-modules/' + mod.nome + '/' + mod.versao + '/' + mod.nome + '.' + format;
 
   if (type != "padrao") path = './layout/modulos_loja/' + mod.nome + '/' + mod.nome + '.' + format;
 
   try {
-      return fs.readFileSync(path).toString();
+    return fs.readFileSync(path).toString();
   } catch (e) {
-      return ""
+    return ""
   }
 }
 

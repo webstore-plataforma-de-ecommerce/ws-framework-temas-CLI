@@ -53,11 +53,12 @@ module.exports = {
     
             if (objJ.preferencias.modulos_loja) {
                 for (var i = 0; i < objJ.preferencias.modulos_loja.length; i++) {
-                    let moduloNome = objJ.preferencias.modulos_loja[i].nome,
-                        moduloEtapa = objJ.preferencias.modulos_loja[i].etapa,
-                        moduloHtml = objJ.preferencias.modulos_loja[i].moduloHtml,
-                        moduloCss = objJ.preferencias.modulos_loja[i].moduloCss,
-                        moduloJs = objJ.preferencias.modulos_loja[i].moduloJs;
+                    let actualMod   = objJ.preferencias.modulos_loja[i],
+                        moduloNome  = actualMod.nome,
+                        moduloEtapa = actualMod.etapa,
+                        moduloHtml  = actualMod.moduloHtml,
+                        moduloCss   = actualMod.moduloCss,
+                        moduloJs    = actualMod.moduloJs;
     
                     if (!fs.existsSync("./layout/modulos_loja/" + moduloNome)) fs.mkdirSync("./layout/modulos_loja/" + moduloNome);
     
@@ -71,7 +72,7 @@ module.exports = {
     
             objJ.preferencias.modulos_loja = modulos_loja_min;
 
-            fs.writeFileSync('./layout/config/config.json', JSON.stringify(objJ.preferencias));
+            fs.writeFileSync('./layout/config/config.json', JSON.stringify(objJ.preferencias, null, 2));
     
             let data = new Date();
             objConfig.ultimoPull = data.getDate() + "/" + data.getMonth() + "/" + data.getFullYear() + " " + data.getHours() + "h" + data.getMinutes() + "m" + data.getSeconds();
