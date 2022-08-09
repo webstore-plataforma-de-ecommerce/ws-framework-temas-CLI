@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "clear": "^0.1.0",
     "colors": "^1.4.0",
+    "inquirer": "^8.0.0",
     "live-server": "^1.2.2",
     "yargs": "^17.5.1"
   }

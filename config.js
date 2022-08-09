@@ -38,6 +38,17 @@ function copyFolderRecursiveSync( source, target ) {
 module.exports = {
     configToken: async (token) => {
         try {
+          if (!token || token.trim() == '') {
+            let consoleQuest = {
+              type: 'string',
+              message: 'Informe seu token:'.bold,
+              name: 'token',
+            }
+
+            let response = await new Inquirer.prompt(consoleQuest);
+            token = response.token;
+          }
+
             let response = await axios(wsEndpoint + '/lojas/dados/dadosloja/?LV_ID=' + token);
             
             let jsonRetorno = response.data;

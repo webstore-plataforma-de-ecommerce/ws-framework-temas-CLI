@@ -1,4 +1,3 @@
-let pageURL = "";
 let result;
 let objJ;
 let etapaAtual = "";
@@ -8,8 +7,7 @@ let LayInt;
 let objConfig;
 let configJs;
 
-let LOJA;
-let PAGE = '/' || '';
+let LOJA, pageURL = '/';
 
 function compileAll(vrf) {
     //var head = "";//fs.readFileSync('./public/head.html').toString();
@@ -35,7 +33,6 @@ function compileAll(vrf) {
 
         LOJA = objJ.loja;
 
-        pageURL = PAGE;
         if (pageURL == "") { pageURL = "/"; }
 
         if (vrf) {
@@ -270,9 +267,7 @@ function htmlModulos() {
 }
 
 function htmlModulosTagsHtml(conteudo) {
-
     try {
-
         if (configJs.modulos) {
             for (let i = 0; i < configJs.modulos.length; i++) {
                 let tag = createTag(configJs.modulos[i], "padrao");
@@ -384,8 +379,8 @@ module.exports = {
                       (req,res,next) => {
                           let arrUrl = req.url.split('/');
                           if ((arrUrl.length == 0 || arrUrl.length == 1) || (arrUrl[1] != 'css' && arrUrl[1] != 'js' && arrUrl[1] != 'carrinhoAJAX')) {
-                              if (PAGE != req.url) {
-                                  PAGE = req.url;
+                              if (pageURL != req.url) {
+                                  pageURL = req.url;
                                   compileAll();
                               }
                           }
@@ -411,4 +406,3 @@ module.exports = {
         })
     }
 }
-

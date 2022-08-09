@@ -8,18 +8,25 @@ function folderVerify(subdir, dir = '') {
 
 module.exports = {
     downloadTheme: async () => {
-        if (!fs.existsSync('./sys/sys.json')) throw 'Não foi encontrado tema configurado nesta pasta!'.yellow.bold
-
         let objConfig = JSON.parse(fs.readFileSync('./sys/sys.json').toString());
-
         let TOKEN = objConfig.token
-        console.log('\nInciando o Download da Nuvem utilizando o token', TOKEN.bold)
-
-        folderVerify(['layout', 'public']);
+        
+        try { fs.mkdirSync('./layout/') } catch(_) {}
+        try { fs.mkdirSync('./public/') } catch(_) {}
         folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], '/layout')
         folderVerify(['css', 'js'], '/public')
 
+
+        console.log("Processo de download de temas da Webstore.".bold);
+        console.log("\nAo prosseguir, o sistema substituirá os arquivos locais em " + './layout/'.yellow.bold + " pelos que você possuí online.\n");
+        
+        let vrf = await confirmOperation('seguir com o download?');
+
+        if (!vrf) return;
+
         try {
+            console.log('\nInciando o Download da Nuvem utilizando o token', TOKEN.bold)
+
             let response = await axios(wsEndpoint + 'lojas/dados/dadoslayout/?TOKEN=' + TOKEN)
     
             if (response.status != 200) throw 'Não foi possível baixar o layout, ' + response.status
@@ -78,7 +85,7 @@ module.exports = {
             objConfig.ultimoPull = data.getDate() + "/" + data.getMonth() + "/" + data.getFullYear() + " " + data.getHours() + "h" + data.getMinutes() + "m" + data.getSeconds();
             fs.writeFileSync('./sys/sys.json', JSON.stringify(objConfig));
     
-            console.log("Download feito com sucesso. ".green.bold + "Execute " + '(node app)'.bold + " para iniciar o projeto agora.\n");
+            console.log("\nDownload feito com sucesso. ".green.bold + "Execute " + '(ws app)'.bold + " para iniciar o projeto agora.\n");
         } catch (e) { console.log(e); }
     }
 }
