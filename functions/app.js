@@ -349,7 +349,7 @@ function ajustaUrlsAssets(conteudo) {
 }
 
 module.exports = {
-    compileTheme: async () => {
+  default: async () => {
         const liveServer = require("live-server");
         
         configJs = JSON.parse(fs.readFileSync('./layout/config/config.json', 'utf-8'));

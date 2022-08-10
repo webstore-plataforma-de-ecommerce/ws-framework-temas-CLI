@@ -113,15 +113,15 @@ const selectedPref = async (pref, group) => {
     choices: [
       { 
         name: 'Renomear'.blue.bold,
-        value: 'Renomear'
+        value: 0
       }, 
       { 
         name: 'Excluir'.red.bold,
-        value: 'Excluir'
+        value: 1
       }, 
       {
         name: 'Editar '.yellow.bold,
-        value: 'Editar'
+        value: 2
       }
     ]
   }
@@ -129,9 +129,9 @@ const selectedPref = async (pref, group) => {
   let response = await new Inquirer.prompt(consoleQuest)
   let selectedOption = `${response.selectedOption}`;
 
-  if (selectedOption == 'Renomear') return await renamePref(group, pref)
-  if (selectedOption == 'Excluir') return await removeObj(group, pref)
-  if (selectedOption == 'Editar') return await editPref(group, pref)
+  if (selectedOption == 0) return await renamePref(group, pref)
+  if (selectedOption == 1) return await removeObj(group, pref)
+  if (selectedOption == 2) return await editPref(group, pref)
 }
 
 const createPref = async(pref, group, oldPref) => {
@@ -168,15 +168,15 @@ const selectedGroup = async (group) => {
     choices: [
       { 
         name: 'Renomear'.blue.bold,
-        value: 'Renomear'
+        value: 0
       },
       { 
         name: 'Excluir'.red.bold,
-        value: 'Excluir'
+        value: 1
       }, 
       {
         name: 'Editar'.yellow.bold,
-        value: 'Editar'
+        value: 2
       }
     ]
   }
@@ -184,9 +184,9 @@ const selectedGroup = async (group) => {
   let response = await new Inquirer.prompt(consoleQuest)
   let selectedOption = `${response.selectedOption}`;
   
-  if (selectedOption == 'Renomear') return await renameGroup(group)
-  if (selectedOption == 'Excluir') return await removeGroup(group)
-  if (selectedOption == 'Editar') return await listPrefs(group)
+  if (selectedOption == 0) return await renameGroup(group)
+  if (selectedOption == 1) return await removeGroup(group)
+  if (selectedOption == 2) return await listPrefs(group)
 }
 
 const createGroup = async () => {
@@ -248,5 +248,5 @@ const intiatePrefs = async () => {
 }
 
 module.exports = {
-  intiatePrefs
+  default: intiatePrefs
 }

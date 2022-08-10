@@ -7,10 +7,10 @@ function folderVerify(subdir, dir = '') {
 }
 
 module.exports = {
-    downloadTheme: async () => {
+  default: async () => {
         let objConfig = JSON.parse(fs.readFileSync('./sys/sys.json').toString());
         let TOKEN = objConfig.token
-        
+
         try { fs.mkdirSync('./layout/') } catch(_) {}
         try { fs.mkdirSync('./public/') } catch(_) {}
         folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], '/layout')
@@ -54,7 +54,7 @@ module.exports = {
             fs.writeFileSync('./layout/estrutura_pagina_produto.html', objJ.produto_detalhe);
             fs.writeFileSync('./layout/estrutura_outras_paginas.html', objJ.sem_direita);
 
-            fs.copyFileSync(__dirname + '/includes.html', './public/includes.html');
+            fs.copyFileSync(__dirname + '/../includes.html', './public/includes.html');
     
             let modulos_loja_min = [];
     

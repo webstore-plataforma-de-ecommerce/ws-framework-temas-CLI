@@ -11,7 +11,7 @@ function getModuleString(mod, format, type = 'padrao') {
 }
 
 module.exports = {
-    pushTheme: async () => {
+  default: async () => {
         let objConfig = JSON.parse(fs.readFileSync('./sys/sys.json').toString());
         let TOKEN = objConfig.token
 

@@ -36,7 +36,7 @@ function copyFolderRecursiveSync( source, target ) {
 }
 
 module.exports = {
-    configToken: async (token) => {
+  default: async (token) => {
         try {
           if (!token || token.trim() == '') {
             let consoleQuest = {
