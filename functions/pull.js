@@ -16,9 +16,10 @@ module.exports = {
         folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], '/layout')
         folderVerify(['css', 'js'], '/public')
 
+        fs.copyFile(__dirname + '/../jquery-atual.js', './public/js/jquery-atual.js', err => console.log('') );
 
         console.log("Processo de download de temas da Webstore.".bold);
-        console.log("\nAo prosseguir, o sistema substituirá os arquivos locais em " + './layout/'.yellow.bold + " pelos que você possuí online.\n");
+        console.log("\nAo prosseguir, o sistema substituirá os arquivos locais em " + './layout/'.yellow.bold + " pelos que você possuí online.");
         
         let vrf = await confirmOperation('seguir com o download?');
 

@@ -358,7 +358,7 @@ module.exports = {
         LOJA = objConfig.token;
 
         if (!fs.existsSync('./layout')) {
-            console.log('\nVerifique se você executou o node pull.\n'.red.bold);
+            console.log('\nNenhum tema encontrado'.red.bold + 'Execute ws pull antes.\n'.red.bold);
             process.exit(0);
         }
 

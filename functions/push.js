@@ -21,8 +21,6 @@ module.exports = {
         let vrf = await confirmOperation("seguir com o upload?".yellow.bold);
         
         if (!vrf) return;
-        
-        console.log()
 
         try {
             var configJs = JSON.parse(fs.readFileSync('./layout/config/config.json'));

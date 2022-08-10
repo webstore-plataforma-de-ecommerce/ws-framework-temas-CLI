@@ -91,7 +91,7 @@ module.exports = {
             console.log("Código do tema: " + jsonRetorno.layout);
             console.log("Nome do tema: " + jsonRetorno.layout_nome);
             console.log("_____________________________________\n");
-            console.log("Processo concluído com sucesso".green.bold + " Execute " + '(node pull)'.bold + " para baixar os dados para edicão.\n\n");
+            console.log("Processo concluído com sucesso".green.bold + " Execute " + '(ws pull)'.bold + " para baixar os dados para edicão.\n\n");
             
             return;
         } catch (err) {

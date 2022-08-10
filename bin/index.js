@@ -5,7 +5,7 @@ global.path = require('path')
 global.axios = require('axios')
 global.wsEndpoint = "https://adminloja.webstore.net.br/"
 global.systemToken = 'DEV12354654698798745646513218'
-global.actualPath = process.cwd();
+global.actualPath = process.cwd()
 global.Inquirer = require('inquirer')
 global.confirmOperation = async (action = 'continuar') => {
   let consoleQuest = {
@@ -15,8 +15,7 @@ global.confirmOperation = async (action = 'continuar') => {
     default: false
   }
 
-  let response = await new Inquirer.prompt(consoleQuest)
-  return response.action;
+  return await new Inquirer.prompt(consoleQuest)
 }
 require('colors')
 
