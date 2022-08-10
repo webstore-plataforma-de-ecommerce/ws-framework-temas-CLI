@@ -373,6 +373,8 @@ module.exports = {
                   root: "./public",
                   open: true,
                   file: "index.html", 
+                  watch: "./layout",
+                  ignore: './public',
                   wait: 0, 
                   logLevel: 0,
                   middleware: [
@@ -394,15 +396,5 @@ module.exports = {
                 console.log("\nNão foi possível iniciar o processo".red.bold);
                 console.log("Verifique se o token informado á válido.\n");
             })
-
-        let fsTimeout;
-
-        fs.watch('./layout', { recursive:true }, (eventType, filename) => {
-            if (!fsTimeout) {
-                console.log('ARQUIVO ALTERADO'.yellow, filename.blue.bold)
-                    compileAll(false);
-                fsTimeout = setTimeout(function() { fsTimeout=null }, 100) 
-            }
-        })
     }
 }

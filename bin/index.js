@@ -40,7 +40,7 @@ const options = yargs
             describe: 'O Token fornecido no painel da Webstore.',
             alias: 't',
             type: 'string',
-            demandOption: true
+            demandOption: false
         }
     })
     .command('pull', 'Faz o download dos arquivos do projeto.'.yellow)
@@ -52,13 +52,14 @@ const options = yargs
 
 
 ;(async () => {
-    let selectedOption = yargs.argv['_'][0]
+    let selectedOption = yargs.argv['_'][0], token = yargs.argv['token'];
 
     if (!insideATheme && objFunctions[selectedOption] && selectedOption != 'config') return console.log('Você não pode executar este comando fora de uma pasta de um tema'.red.bold);
 
     if (objFunctions[selectedOption]) {
 
-      await objFunctions[selectedOption]();
+      if (token && selectedOption == 'config') await objFunctions[selectedOption](token);
+      else await objFunctions[selectedOption]();
       
     } else {
 

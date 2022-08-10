@@ -69,8 +69,8 @@ module.exports = {
             fs.mkdirSync(pathToCreate + '/sys')
             fs.writeFileSync(pathToCreate + '/sys/sys.json', JSON.stringify(objConfig));
 
-            copyFolderRecursiveSync(__dirname + '/default-modules', pathToCreate + '/sys/');
-            copyFolderRecursiveSync(__dirname + '/default-structures', pathToCreate + '/sys/')
+            copyFolderRecursiveSync(__dirname + '/../default-modules', pathToCreate + '/sys/');
+            copyFolderRecursiveSync(__dirname + '/../default-structures', pathToCreate + '/sys/')
 
             console.log("\n**************************".yellow);
             console.log("!Atenção!".yellow.bold);
