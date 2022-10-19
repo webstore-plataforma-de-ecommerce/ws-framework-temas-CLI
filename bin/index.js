@@ -10,12 +10,12 @@ global.Inquirer = require('inquirer')
 global.confirmOperation = async (action = 'continuar') => {
   let consoleQuest = {
     type: 'confirm',
-    message: 'Você tem certeza que deseja ' + action + '?',
+    message: 'Você tem certeza que deseja ' + action,
     name: 'action',
     default: false
   }
 
-  return await new Inquirer.prompt(consoleQuest)
+  return await new Inquirer.prompt(consoleQuest);
 }
 require('colors')
 
@@ -53,7 +53,7 @@ const options = yargs
 ;(async () => {
     let selectedOption = yargs.argv['_'][0], token = yargs.argv['token'];
 
-    if (!insideATheme && objFunctions[selectedOption] && selectedOption != 'config') return console.log('Você não pode executar este comando fora de uma pasta de um tema'.red.bold);
+    if (!insideATheme && objFunctions[selectedOption] && selectedOption != 'config' && selectedOption != 'svg') return console.log('Você não pode executar este comando fora de uma pasta de um tema'.red.bold);
 
     if (objFunctions[selectedOption]) {
 
@@ -63,7 +63,7 @@ const options = yargs
     } else {
 
       let arrChoices = Object.keys(objFunctions).map(key => { return { name: key, value: objFunctions[key] }});
-      arrChoices = arrChoices.filter(choice => !insideATheme && choice.name != 'config' ? false : true );
+      arrChoices = arrChoices.filter(choice => !insideATheme && choice.name != 'config' && choice.name != 'svg' ? false : true );
 
       let consoleQuest = {
         type: 'list',

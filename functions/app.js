@@ -85,7 +85,7 @@ function compileAll(vrf) {
         try {
             bodyPage = bodyPage.replace(/_s3cdn_.js/gi, '')
 
-            let etapaAtual = new RegExp('HdEtapaLoja(.*?)value=(\'|")(.*?)(\'|")', 'gm').exec(bodyPage)[3];
+            etapaAtual = new RegExp('HdEtapaLoja(.*?)value=(\'|")(.*?)(\'|")', 'gm').exec(bodyPage)[3];
 
             LOJA = objJ.loja;
     
@@ -102,6 +102,7 @@ function compileAll(vrf) {
             if (vrf) {
                 console.log("Etapa: ".bold + etapaAtual.green.bold);
                 console.log("Dominio: ".bold + objJ.dominio.green.bold);
+                console.log("Apelido do tema: ".bold + objJ.layout_apelido.green.bold);
                 console.log("Nome da loja: ".bold + objJ.loja_nome.green.bold, '\n');
             }
 
@@ -177,7 +178,6 @@ function htmlModulos() {
                 let actualMod = configJs.modulos_loja[i];
 
                 if (actualMod.etapa.indexOf(etapaAtual) >= 0 || actualMod.etapa == "*") {
-
                     let tag = createTag(actualMod);
                     let moduloHtml = getModuleString(actualMod, 'html', 'custom');
                     result = result.replace(tag, moduloHtml);
@@ -358,7 +358,7 @@ module.exports = {
         LOJA = objConfig.token;
 
         if (!fs.existsSync('./layout')) {
-            console.log('\nNenhum tema encontrado'.red.bold + 'Execute ws pull antes.\n'.red.bold);
+            console.log('\nVerifique se você executou o node pull.\n'.red.bold);
             process.exit(0);
         }
 
@@ -369,13 +369,11 @@ module.exports = {
 
                 liveServer.start({
                   port: 3000,
-                  host: 'localhost',
                   root: "./public",
-                  open: true,
-                  file: "index.html", 
-                  watch: "./layout",
-                  ignore: './public',
-                  wait: 0, 
+                  watch: './public',
+                  open: false,
+                  file: "index.html",
+                  wait: 1000, 
                   logLevel: 0,
                   middleware: [
                       (req,res,next) => {
@@ -386,7 +384,7 @@ module.exports = {
                                   compileAll();
                               }
                           }
-                          next();
+                          setTimeout(() => {next()}, 100)
                       }
                   ]
                 });
@@ -396,5 +394,15 @@ module.exports = {
                 console.log("\nNão foi possível iniciar o processo".red.bold);
                 console.log("Verifique se o token informado á válido.\n");
             })
+
+        let fsTimeout;
+
+        fs.watch('./layout', { recursive:true }, (eventType, filename) => {
+            if (!fsTimeout) {
+                console.log('ARQUIVO ALTERADO'.yellow, filename.blue.bold)
+                    compileAll(false);
+                fsTimeout = setTimeout(function() { fsTimeout=null }, 200) 
+            }
+        })
     }
 }

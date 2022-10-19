@@ -57,11 +57,12 @@ module.exports = {
             let objConfig = {
                 tipo: jsonRetorno.tipo,
                 tema: jsonRetorno.layout_nome,
+                apelido: jsonRetorno.layout_apelido,
                 loja: jsonRetorno.loja_nome,
                 token: token
             }
 
-            let pathToCreate = actualPath + '/' + objConfig.tema.replace(/\.| /g, '') + '-' + objConfig.loja.replace(/\.| /g, '');
+            let pathToCreate = actualPath + '/' + objConfig.apelido.replace(/\.| /g, '') + '-' + objConfig.loja.replace(/\.| /g, '');
 
             if (fs.existsSync(pathToCreate)) throw 'Já existe uma pasta com o nome deste tema no diretório atual'
 
@@ -89,7 +90,7 @@ module.exports = {
             console.log("Loja: " + jsonRetorno.loja_nome);
             console.log("Domínio: " + jsonRetorno.dominio);
             console.log("Código do tema: " + jsonRetorno.layout);
-            console.log("Nome do tema: " + jsonRetorno.layout_nome);
+            console.log("Apelido do tema: " + jsonRetorno.layout_apelido);
             console.log("_____________________________________\n");
             console.log("Processo concluído com sucesso".green.bold + " Execute " + '(ws pull)'.bold + " para baixar os dados para edicão.\n\n");
             

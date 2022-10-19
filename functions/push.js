@@ -20,7 +20,7 @@ module.exports = {
 
         let vrf = await confirmOperation("seguir com o upload?".yellow.bold);
         
-        if (!vrf) return;
+        if (!vrf.action) return;
 
         try {
             var configJs = JSON.parse(fs.readFileSync('./layout/config/config.json'));
@@ -56,8 +56,8 @@ module.exports = {
 
                 if (configJs.modulos_loja) {
 
-                    if (configJs.modulos_loja.length > 20) {
-                        console.log("Voce nao deve usar mais do que 20 modulos personalizados para um tema".yellow);
+                    if (configJs.modulos_loja.length > 30) {
+                        console.log("Voce nao deve usar mais do que 30 modulos personalizados para um tema".yellow);
                         return;
                     }
 
