@@ -20,7 +20,6 @@ module.exports = {
 
         try { fs.mkdirSync('./layout/') } catch(_) {}
         try { fs.mkdirSync('./public/') } catch(_) {}
-        console.log('teste');
         folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], '/layout')
         folderVerify(['css', 'js'], '/public')
 
