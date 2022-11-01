@@ -1,10 +1,3 @@
-function folderVerify(subdir, dir = '') {
-    let pathToUse = dir != '' ? actualPath + dir : actualPath;
-    subdir.forEach(element => {
-        try { fs.rmSync(pathToUse + '/' + element, {recursive: true, force: true}); } catch(err) {}
-        fs.mkdirSync(pathToUse + '/' + element)
-    });
-}
 
 module.exports = {
   default: async () => {
@@ -17,13 +10,6 @@ module.exports = {
         let vrf = await confirmOperation("seguir com o download?".yellow.bold);
 
         if (!vrf.action) return;
-
-        try { fs.mkdirSync('./layout/') } catch(_) {}
-        try { fs.mkdirSync('./public/') } catch(_) {}
-        folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], '/layout')
-        folderVerify(['css', 'js'], '/public')
-
-        fs.copyFile(__dirname + '/../jquery-atual.js', './public/js/jquery-atual.js', err => console.log('') );
 
         try {
             console.log('\nInciando o Download da Nuvem utilizando o token', TOKEN.bold)

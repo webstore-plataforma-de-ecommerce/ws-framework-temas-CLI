@@ -35,6 +35,14 @@ function copyFolderRecursiveSync( source, target ) {
     }
 }
 
+function folderVerify(subdir, dir = '') {
+  let pathToUse = dir != '' ? actualPath + dir : actualPath;
+  subdir.forEach(element => {
+      try { fs.rmSync(pathToUse + '/' + element, {recursive: true, force: true}); } catch(err) {}
+      fs.mkdirSync(pathToUse + '/' + element)
+  });
+}
+
 module.exports = {
   default: async (token) => {
         try {
@@ -73,6 +81,13 @@ module.exports = {
             copyFolderRecursiveSync(__dirname + '/../default-modules', pathToCreate + '/sys/')
             copyFolderRecursiveSync(__dirname + '/../default-structures', pathToCreate + '/sys/')
             copyFolderRecursiveSync(__dirname + '/../layout', pathToCreate);
+
+            try { fs.mkdirSync('./layout/') } catch(_) {}
+            try { fs.mkdirSync('./public/') } catch(_) {}
+            folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], '/layout')
+            folderVerify(['css', 'js'], '/public')
+    
+            fs.copyFile(__dirname + '/../jquery-atual.js', './public/js/jquery-atual.js', err => console.log('') );
 
             console.log("\n**************************".yellow);
             console.log("!Atenção!".yellow.bold);
