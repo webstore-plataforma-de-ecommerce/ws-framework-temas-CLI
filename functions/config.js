@@ -35,10 +35,10 @@ function copyFolderRecursiveSync( source, target ) {
     }
 }
 
-function folderVerify(subdir, dir = __dirname) {
+function folderVerify(subdir, pathToUse = __dirname) {
   subdir.forEach(element => {
-      try { fs.rmSync(dir + '/' + pathToUse + '/' + element, {recursive: true, force: true}); } catch(err) {}
-      fs.mkdirSync(dir + '/' +  pathToUse + '/' + element)
+      try { fs.rmSync(pathToUse + '/' + element, {recursive: true, force: true}); } catch(err) {}
+      fs.mkdirSync(pathToUse + '/' + element)
   });
 }
 
