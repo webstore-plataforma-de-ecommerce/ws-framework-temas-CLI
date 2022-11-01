@@ -59,11 +59,6 @@
   "modulos_loja": [],
   "modulos": [
     {
-      "nome": "plugin_bootstrap",
-      "versao": "1.0",
-      "etapa": "*"
-    },
-    {
       "nome": "wsjs",
       "versao": "3.0",
       "etapa": "*"

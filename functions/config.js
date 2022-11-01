@@ -85,7 +85,7 @@ module.exports = {
             folderVerify(['css', 'js'], pathToCreate + '/public')
     
             fs.copyFile(__dirname + '/../jquery-atual.js',  pathToCreate + '/public/js/jquery-atual.js', err => console.log('') );
-            fs.copyFile(__dirname + '/../includes.html',  pathToCreate + '/includes.html', err => console.log('') );
+            fs.copyFile(__dirname + '/../includes.html',  pathToCreate + '/public/includes.html', err => console.log('') );
 
             console.log("\n**************************".yellow);
             console.log("!Atenção!".yellow.bold);
