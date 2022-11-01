@@ -81,10 +81,8 @@ module.exports = {
             copyFolderRecursiveSync(__dirname + '/../default-modules', pathToCreate + '/sys/')
             copyFolderRecursiveSync(__dirname + '/../default-structures', pathToCreate + '/sys/')
             copyFolderRecursiveSync(__dirname + '/../layout', pathToCreate);
-
-            try { fs.mkdirSync(pathToCreate + './layout/') } catch(_) {}
             try { fs.mkdirSync(pathToCreate + './public/') } catch(_) {}
-            folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], pathToCreate + '/layout')
+
             folderVerify(['css', 'js'], pathToCreate + '/public')
     
             fs.copyFile(__dirname + '/../jquery-atual.js',  pathToCreate + '/public/js/jquery-atual.js', err => console.log('') );
