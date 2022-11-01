@@ -1,6 +1,6 @@
 {
   "name": "@plataformawebstore/ws_framework",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Command Line Interface for themes editing & creation by Webstore",
   "main": "bin/index.js",
   "bin": {
