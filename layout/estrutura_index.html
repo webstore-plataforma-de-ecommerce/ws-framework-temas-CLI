@@ -1,0 +1,82 @@
+<!--###TOPO###-->
+
+<div data-wsjs-loader style="display: none;">
+  <span data-wsjs-banner="popup" class="banner-popup-modal"></span>
+
+  <section class="banner-row banner-full-row">
+    <span data-wsjs-banner="full" data-wsjs-slide=""></span>
+  </section>
+
+  <section class="condition-row">
+      <div class="container">
+          <span data-wsjs-module="conditions"></span>
+      </div>
+  </section>
+
+  <section class="banner-row">
+      <div class="container">
+          <span data-wsjs-banner="topo" data-wsjs-slide=""></span>
+          <span data-wsjs-banner="tarja" data-wsjs-slide=""></span>
+          <span data-wsjs-banner="mini" data-wsjs-slide="slides.perView: 5;"></span>
+      </div>
+  </section>
+
+  <span class="prod-row" data-wsjs-prod-list="spotlight" data-wsjs-slide="needOffset: true;slides.spacing: 20;slides.perView: 4;dots: true;dotsType: group;">Destaques</span>
+  
+  <span class="prod-row" data-wsjs-prod-list="group" data-wsjs-slide="needOffset: true;slides.spacing: 20;slides.perView: 4;dots: true;dotsType: group;"></span>
+  
+  <!-- <span class="prod-row" data-wsjs-prod-list="home" data-wsjs-slide="needOffset: true;slides.spacing: 20;slides.perView: 4;dots: true;dotsType: group;">Destaque</span> -->
+  
+  <span class="prod-row"  data-wsjs-prod-list="home">Destaque</span>
+  
+  <span class="prod-row"  data-wsjs-prod-list="previous" data-wsjs-slide="needOffset: true;slides.spacing: 20;slides.perView: 4;dots: true;dotsType: group;">&Uacute;;ltimos Vistos</span>
+
+  <section class="banner-row">
+      <div class="container">
+          <span data-wsjs-banner="rodape" data-wsjs-slide=""></span>
+      </div>
+  </section>
+
+  <section class="manufacturer-row">
+      <div class="container">
+          <span class="manufacturer-holder" data-wsjs-module="manufacturer" data-wsjs-slide="slides.perView: 6;prevArrow: false;nextArrow: false;"></span>
+      </div>
+  </section>
+
+  <section class="newsletter-holder">
+    <div class="container">
+        <div class="newsletter-text">
+            <h2>
+              <!--##text-title-newsletter-var##-->
+            </h2>
+            <p>
+              <!--##text-subtitle-newsletter-var##-->
+            </p>
+        </div>
+        <form id="newsletter" data-wsjs-newsletter="container" action="javascript:void(wsMain.modules['newsletter'].registerNews())">
+          <div>
+            <label for="newsName">Digite seu nome</label>
+            <input id="newsName" type="text" minlength="3" maxlength="50" placeholder="Seu nome" required>
+          </div>
+          <div>
+            <label for="newsMail">Digite seu e-mail</label>
+            <input id="newsMail" type="email" maxlength="50" placeholder="Seu e-mail" required>
+          </div>
+
+          <div class="newsletter-message">
+              Esta é uma mensagem
+          </div>
+          <button class="button-second" type="submit">Enviar</button>
+        </form>
+    </div>
+  </section>
+
+  <!--###RODAPE###-->
+  <!--###COMPLEMENTO###-->
+
+
+  <div data-wsjs-module="prod-template" class="hidden">
+    <!--##PROD-TEMPLATE1.0##-->
+  </div>
+
+</div>
