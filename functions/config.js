@@ -1,46 +1,4 @@
-function copyFileSync( source, target ) {
-
-    var targetFile = target;
-
-    // If target is a directory, a new file with the same name will be created
-    if ( fs.existsSync( target ) ) {
-        if ( fs.lstatSync( target ).isDirectory() ) {
-            targetFile = path.join( target, path.basename( source ) );
-        }
-    }
-
-    fs.writeFileSync(targetFile, fs.readFileSync(source));
-}
-
-function copyFolderRecursiveSync( source, target ) {
-    var files = [];
-
-    // Check if folder needs to be created or integrated
-    var targetFolder = path.join( target, path.basename( source ) );
-    if ( !fs.existsSync( targetFolder ) ) {
-        fs.mkdirSync( targetFolder );
-    }
-
-    // Copy
-    if ( fs.lstatSync( source ).isDirectory() ) {
-        files = fs.readdirSync( source );
-        files.forEach( function ( file ) {
-            var curSource = path.join( source, file );
-            if ( fs.lstatSync( curSource ).isDirectory() ) {
-                copyFolderRecursiveSync( curSource, targetFolder );
-            } else {
-                copyFileSync( curSource, targetFolder );
-            }
-        } );
-    }
-}
-
-function folderVerify(subdir, pathToUse = __dirname) {
-  subdir.forEach(element => {
-      try { fs.rmSync(pathToUse + '/' + element, {recursive: true, force: true}); } catch(err) {}
-      fs.mkdirSync(pathToUse + '/' + element)
-  });
-}
+let pullFunc = require('./pull').default;
 
 module.exports = {
   default: async (token) => {
@@ -75,17 +33,9 @@ module.exports = {
 
             fs.mkdirSync(pathToCreate)
             fs.mkdirSync(pathToCreate + '/sys')
-            fs.writeFileSync(pathToCreate + '/sys/sys.json', JSON.stringify(objConfig));
+            fs.writeFileSync(pathToCreate + '/sys/sys.json', JSON.stringify(objConfig))
 
             copyFolderRecursiveSync(__dirname + '/../default-modules', pathToCreate + '/sys/')
-            copyFolderRecursiveSync(__dirname + '/../default-structures', pathToCreate + '/sys/')
-            copyFolderRecursiveSync(__dirname + '/../layout', pathToCreate);
-            try { fs.mkdirSync(pathToCreate + '/public/') } catch(_) {}
-
-            folderVerify(['css', 'js'], pathToCreate + '/public')
-    
-            fs.copyFile(__dirname + '/../jquery-atual.js',  pathToCreate + '/public/js/jquery-atual.js', err => console.log('') );
-            fs.copyFile(__dirname + '/../includes.html',  pathToCreate + '/public/includes.html', err => console.log('') );
 
             console.log("\n**************************".yellow);
             console.log("!Atenção!".yellow.bold);
@@ -108,6 +58,8 @@ module.exports = {
             console.log("_____________________________________\n");
             console.log("Processo concluído com sucesso".green.bold + " Execute " + '(ws pull)'.bold + " para baixar os dados para edicão.\n\n");
             
+            pullFunc(pathToCreate, true);
+
             return;
         } catch (err) {
             console.log(err);

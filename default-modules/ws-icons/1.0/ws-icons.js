@@ -13,7 +13,7 @@ wsMain.createModule({
     let obj;
 
     if (!data) {
-      let response = await fetch("https://arquivostemporarios.plataformawebstore.com.br/ftptempwebstore/IconesOficial.txt?versao=E-27-10");
+      let response = await fetch("https://cdns3.webstore.net.br/files/0ws/wireframe/icones-wireframe.svg?versao=A-03-11");
       data = await response.text();
 
       let svgs = data.replace(/<svg/g, '|DIVIDER|<svg').split('|DIVIDER|');

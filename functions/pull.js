@@ -1,15 +1,28 @@
+function folderVerify(subdir, pathToUse) {
+  subdir.forEach(element => {
+      try { fs.rmSync(pathToUse + '/' + element, {recursive: true, force: true}); } catch(err) {}
+      fs.mkdirSync(pathToUse + '/' + element)
+  });
+}
 
 module.exports = {
-  default: async () => {
-        let objConfig = JSON.parse(fs.readFileSync('./sys/sys.json').toString());
+  default: async (dir = actualPath, force = false) => {
+        let objConfig = JSON.parse(fs.readFileSync(dir + '/sys/sys.json').toString());
         let TOKEN = objConfig.token
 
         console.log("Processo de download de temas da Webstore.".bold);
         console.log("\nAo prosseguir, o sistema substituirá os arquivos que você possuí localmente pelos do tema " + objConfig.tema.yellow.bold + ".\n");
 
-        let vrf = await confirmOperation("seguir com o download?".yellow.bold);
+        if (!force) {
+          let vrf = await confirmOperation("seguir com o download?".yellow.bold);
+          
+          if (!vrf.action) return;
+        }
 
-        if (!vrf.action) return;
+        try { fs.mkdirSync(dir + '/layout') } catch(_) {}
+        folderVerify(['assets', 'config', 'include', 'include/add_tags', 'modulos_loja'], dir + '/layout')
+
+        copyFolderRecursiveSync(__dirname + '/../public', dir);
 
         try {
             console.log('\nInciando o Download da Nuvem utilizando o token', TOKEN.bold)
@@ -22,26 +35,24 @@ module.exports = {
     
             if (!objJ.preferencias) throw 'Não foi possível ler as preferências';
     
-            fs.writeFileSync('./layout/include/barra.html', objJ.barra);
-            fs.writeFileSync('./layout/include/complemento.html', objJ.complemento);
-            fs.writeFileSync('./layout/include/topo.html', objJ.topo);
-            fs.writeFileSync('./layout/include/rodape.html', objJ.rodape);
-            fs.writeFileSync('./layout/include/direita.html', objJ.direita);
-            fs.writeFileSync('./layout/include/esquerda.html', objJ.esquerda);
+            fs.writeFileSync(dir + '/layout/include/barra.html', objJ.barra);
+            fs.writeFileSync(dir + '/layout/include/complemento.html', objJ.complemento);
+            fs.writeFileSync(dir + '/layout/include/topo.html', objJ.topo);
+            fs.writeFileSync(dir + '/layout/include/rodape.html', objJ.rodape);
+            fs.writeFileSync(dir + '/layout/include/direita.html', objJ.direita);
+            fs.writeFileSync(dir + '/layout/include/esquerda.html', objJ.esquerda);
     
-            fs.writeFileSync('./layout/include/add_tags/head.html', objJ.head);
-            fs.writeFileSync('./layout/include/add_tags/body.html', objJ.body);
+            fs.writeFileSync(dir + '/layout/include/add_tags/head.html', objJ.head);
+            fs.writeFileSync(dir + '/layout/include/add_tags/body.html', objJ.body);
     
-            fs.writeFileSync('./layout/assets/folha.css', objJ.folha);
-            fs.writeFileSync('./public/css/cssBase.css', objJ.cssBase);
-            fs.writeFileSync('./layout/assets/functions.js', objJ.js);
+            fs.writeFileSync(dir + '/layout/assets/folha.css', objJ.folha);
+            fs.writeFileSync(dir + '/public/css/cssBase.css', objJ.cssBase);
+            fs.writeFileSync(dir + '/layout/assets/functions.js', objJ.js);
     
-            fs.writeFileSync('./layout/estrutura_index.html', objJ.index);
-            fs.writeFileSync('./layout/estrutura_listagem.html', objJ.listagem);
-            fs.writeFileSync('./layout/estrutura_pagina_produto.html', objJ.produto_detalhe);
-            fs.writeFileSync('./layout/estrutura_outras_paginas.html', objJ.sem_direita);
-
-            fs.copyFileSync(__dirname + '/../includes.html', './public/includes.html');
+            fs.writeFileSync(dir + '/layout/estrutura_index.html', objJ.index);
+            fs.writeFileSync(dir + '/layout/estrutura_listagem.html', objJ.listagem);
+            fs.writeFileSync(dir + '/layout/estrutura_pagina_produto.html', objJ.produto_detalhe);
+            fs.writeFileSync(dir + '/layout/estrutura_outras_paginas.html', objJ.sem_direita);
     
             let modulos_loja_min = [];
     
@@ -54,11 +65,11 @@ module.exports = {
                         moduloCss   = actualMod.moduloCss,
                         moduloJs    = actualMod.moduloJs;
     
-                    if (!fs.existsSync("./layout/modulos_loja/" + moduloNome)) fs.mkdirSync("./layout/modulos_loja/" + moduloNome);
+                    if (!fs.existsSync(dir + "/layout/modulos_loja/" + moduloNome)) fs.mkdirSync(dir + "/layout/modulos_loja/" + moduloNome);
     
-                    fs.writeFileSync("./layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".js", moduloJs);
-                    fs.writeFileSync("./layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".css", moduloCss);
-                    fs.writeFileSync("./layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".html", moduloHtml);
+                    fs.writeFileSync(dir + "/layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".js", moduloJs);
+                    fs.writeFileSync(dir + "/layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".css", moduloCss);
+                    fs.writeFileSync(dir + "/layout/modulos_loja/" + moduloNome + "/" + moduloNome + ".html", moduloHtml);
     
                     modulos_loja_min.push({ nome: moduloNome, etapa: moduloEtapa });
                 }
@@ -66,11 +77,11 @@ module.exports = {
     
             objJ.preferencias.modulos_loja = modulos_loja_min;
 
-            fs.writeFileSync('./layout/config/config.json', JSON.stringify(objJ.preferencias, null, 2));
+            fs.writeFileSync(dir + '/layout/config/config.json', JSON.stringify(objJ.preferencias, null, 2));
     
             let data = new Date();
             objConfig.ultimoPull = data.getDate() + "/" + data.getMonth() + "/" + data.getFullYear() + " " + data.getHours() + "h" + data.getMinutes() + "m" + data.getSeconds();
-            fs.writeFileSync('./sys/sys.json', JSON.stringify(objConfig));
+            fs.writeFileSync(dir + '/sys/sys.json', JSON.stringify(objConfig));
     
             console.log("\nDownload feito com sucesso. ".green.bold + "Execute " + '(ws app)'.bold + " para iniciar o projeto agora.\n");
         } catch (e) { console.log(e); }

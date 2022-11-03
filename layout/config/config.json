@@ -59,22 +59,22 @@
   "modulos_loja": [],
   "modulos": [
     {
-      "nome": "wsjs",
-      "versao": "3.0",
-      "etapa": "*"
-    },
-    {
-      "nome": "main",
-      "versao": "2.0",
-      "etapa": "*"
-    },
-    {
-      "nome": "wirestyle",
+      "nome": "ws-wsjs",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "placeholders",
+      "nome": "ws-main",
+      "versao": "1.0",
+      "etapa": "*"
+    },
+    {
+      "nome": "ws-wirestyle",
+      "versao": "1.0",
+      "etapa": "*"
+    },
+    {
+      "nome": "ws-placeholders",
       "versao": "1.0",
       "etapa": "*"
     },
@@ -84,97 +84,92 @@
       "etapa": "*"
     },
     {
-      "nome": "banners",
-      "versao": "2.0",
-      "etapa": "*"
-    },
-    {
-      "nome": "info-lojas",
+      "nome": "ws-banners",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "categories",
+      "nome": "ws-info-lojas",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "manufacturers",
+      "nome": "ws-categories",
       "versao": "1.0",
-      "etapa": "HOME"
+      "etapa": "*"
     },
     {
-      "nome": "condition",
+      "nome": "ws-manufacturers",
       "versao": "1.0",
       "etapa": "HOME"
     },
     {
-      "nome": "login-options",
+      "nome": "ws-condition",
+      "versao": "1.0",
+      "etapa": "HOME"
+    },
+    {
+      "nome": "ws-login-options",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "newsletter",
-      "versao": "2.0",
-      "etapa": "*"
-    },
-    {
-      "nome": "prod-template",
+      "nome": "ws-newsletter",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "prod-list",
+      "nome": "ws-prod-template",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "cart-drawer",
-      "versao": "2.0",
-      "etapa": "*"
-    },
-    {
-      "nome": "plugin_keenslider",
+      "nome": "ws-prod-list",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "category-filter",
+      "nome": "ws-cart-drawer",
+      "versao": "1.0",
+      "etapa": "*"
+    },
+    {
+      "nome": "ws-plugin-keenslider",
+      "versao": "1.0",
+      "etapa": "*"
+    },
+    {
+      "nome": "ws-category-filter",
       "versao": "1.0",
       "etapa": "LISTAGEM"
     },
     {
-      "nome": "pag-contact",
+      "nome": "ws-pag-contact",
       "versao": "1.0",
       "etapa": "CONTATO,PRODUTO"
     },
     {
-      "nome": "pag-institutional",
+      "nome": "ws-pag-institutional",
       "versao": "1.0",
       "etapa": "PAGINAS_INST"
     },
     {
-      "nome": "pag-login-cart",
-      "versao": "1.0",
-      "etapa": "login,CARRINHO"
-    },
-    {
-      "nome": "footer-badges",
+      "nome": "ws-footer-badges",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "adptionstyle",
+      "nome": "ws-adptionstyle",
       "versao": "1.0",
       "etapa": "*"
     },
     {
-      "nome": "pag-prod-desktop",
+      "nome": "ws-pag-prod-desktop",
       "versao": "1.0",
       "etapa": "PRODUTO"
     },
     {
-      "nome": "pag-prod-rules",
+      "nome": "ws-pag-prod-rules",
       "versao": "1.0",
       "etapa": "PRODUTO"
     }

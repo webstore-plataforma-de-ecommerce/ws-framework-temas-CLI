@@ -1,0 +1,266 @@
+<div class="row" data-wsjs-product="container">
+  <section class="loader-container">
+      <div class="loader"></div>
+  </section>
+
+  <section class="container prod-container prod-to-load">
+      <span class="breadcrumb-container" data-wsjs-product="breadcrumb"></span>
+
+      <div class="prod-inside-container">
+
+          <div class="prod-side-container" style="opacity: 0;">
+              <div class="prod-photo-container">
+                  <span data-wsjs-force="none" data-wsjs-product="dots" data-wsjs-options="icon: <span data-wsjs-icon='play'></span>;" data-wsjs-slide="needOffset: true;slides.perView: 5;slides.spacing: 10;slides.align: center; vertical: true; mode: free-snap;"></span>
+                  <span data-wsjs-force="none" data-wsjs-product="photos" data-wsjs-slide="arrows: false;"></span>
+              </div>
+
+              <div class="prod-related-container">
+                  <span data-wsjs-prod-list="related" data-wsjs-options="container: false;" data-wsjs-slide="slides.perView:3;slides.spacing:20;dots:true;dotsType: group;" data-wsjs-options="price-main: false;price-second: false;price-installment: false;price-cash: false;">Relacionados</span>
+              </div>
+
+              <div class="prod-main-block-descriptions">
+                <span class="prod-video-container" data-wsjs-product="video">
+                  <h2>V&iacute;deo</h2>
+                </span>
+                
+                <span class="prod-features-container" data-wsjs-product="features">
+                  <h2>Caracter&iacute;sticas</h2>
+                </span>
+                
+                <span class="prod-description-container" id="prod-description-container" data-wsjs-product="descriptions"></span>
+              </div>
+
+
+              
+          </div>
+
+          <div class="prod-side-container" style="opacity: 0;">
+              <section class="available-section" data-wsjs-product-state="available">
+                
+                <div class="prod-block-container">
+                  
+                  <div data-wsjs-infoHolder class="prod-tags-container"> 
+                    <span class="prod-tags" data-wsjs-product="tagDescount">{{value}} OFF</span>
+                    <span class="prod-tags" data-wsjs-product="tagShippingFree">Frete Gr&aacute;tis</span>
+                    <span class="prod-tags" data-wsjs-product="tagNew">Lan&ccedil;amento</span>
+                  </div>
+      
+                  <span data-wsjs-product="name"></span>
+                  
+                  <div class="prod-code-container">
+                      <span>
+                          C&oacute;digo: 
+                          <span data-wsjs-product="code"></span>
+                      </span>
+                      <span class="tag-link" data-wsjs-product="manufacturer" ></span>
+                  </div>
+  
+                  <div data-wsjs-infoHolder class="prod-short-container">
+                      <span data-wsjs-product="shortDesc" data-wsjs-options="link:#prod-description-container;">Mais informa&ccedil;&otilde;es</span>
+                  </div> 
+      
+                  <div class="prod-price-container">
+
+                    <div class="prod-price-main">
+                      <span data-wsjs-product="priceOf" data-wsjs-force="none" class="prod-price-sell"></span>
+                      <span data-wsjs-product="priceFor" data-wsjs-force="none" class="prod-price-off"></span>
+                    </div>
+                      
+                    <span data-wsjs-product="priceInstallment" data-wsjs-force="none"></span>
+                    <span data-wsjs-product="priceCash" data-wsjs-force="none">&agrave; vista</span>
+                 
+                  </div>                          
+                        
+                  
+                    <div class="sub-produtos-container">
+                      <div class="sub-produtos"><!--##PRECO_GENERO##--></div>
+                      <div class="sub-produtos" id="DivCamposAdd"><!--##CAMPOS_ADICIONAIS##--></div>
+                    </div>
+
+                    <div class="prod-quantity-container">
+                        <label for="TxtQtdAdd">Quantidade:</label>
+                        <div class="prod-quantity">
+                            <span onclick="this.nextSibling.nextSibling.stepDown()">_</span>
+                            <input id="TxtQtdAdd" name="TxtQtdAdd" data-wsjs-product="quantity" type="number" min="1" max="999" maxlength="3" minlength="1" placeholder="1" value="1"></input>
+                            <span onclick="this.previousSibling.previousSibling.stepUp()">+</span>
+                        </div>
+                    </div>
+
+                    <div class="prod-avaliable-container">
+                      <span>
+                        <span data-wsjs-product="avaliableDays">Disponibilidade: </span>
+                      </span>
+                    </div>
+
+                    <div class="prod-buttons-container">
+                      <span class="button-main" data-wsjs-product="buttonBuy">Comprar Agora</span>
+                      
+                      <span class="button-second" data-wsjs-product="buttonCart">Adicionar ao Carrinho</span>
+                      
+                      <div class="prod-social-container">
+                        <span data-wsjs-product="buttonFavorite" class="button-third">Add aos favoritos</span>
+
+                        <div class="prod-social-share-container">
+                            <span data-wsjs-product="buttonShare" class="button-third">
+                              <span data-wsjs-icon="share"></span>
+                              Compartilhar
+                            </span>
+                            <div class="prod-social-share-items">
+                                
+                              
+                              <span data-wsjs-product="shareCopy" class="share-copy-item">
+                                  <span data-wsjs-icon="file"></span>
+                                </span>
+                                
+                                <span data-wsjs-product="shareEmail">
+                                  <span data-wsjs-icon="email"></span>
+                                </span>
+                                
+                                <span data-wsjs-product="shareWhatsApp" class="share-whatsapp-item">
+                                  <span data-wsjs-icon="whatsapp"></span>
+                                </span>
+                                
+                                <span data-wsjs-product="shareFacebook">
+                                  <span data-wsjs-icon="facebook"></span>
+                                </span>
+                            </div>
+                        </div>
+                      </div>
+
+                  </div>
+
+
+                  </div>
+  
+                  
+  
+                  <div class="prod-block-container">
+                          <span class="prod-installments-container" data-wsjs-product="installments" data-wsjs-force="none"><h2>Parcelas</h2></span>
+                          <span class="prod-warranty-container" data-wsjs-product="warranty"><h2>Garantia</h2></span>
+                  </div>
+  
+                  <div class="prod-block-container">
+
+                      <div class="prod-shipping-container">
+                          <div class="prod-shipping-head">
+                              <h2>Calcule seu frete</h2>
+                              
+                          </div>
+                          <div class="prod-shipping-form">
+                              <input id="inputCEP" type="text" placeholder="00000-000" onkeyup="wsMain.modules['pag-produto'].shippingHolder(event)" maxlength="9">
+                              <button data-wsjs-shipping class="button-third" onclick="wsMain.modules['pag-produto'].calculateShipping(this.parentNode.querySelector('input[type=text]'))">
+                                  Calcular
+                              </button>
+                          </div>
+                          <div>
+                              <a class="tag-link" href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank">N&atilde;o sei meu CEP</a>
+                          </div>
+                          <div data-wsjs-shipping="container"></div>
+                      </div>
+
+                  </div>
+              </section>
+  
+              <section data-wsjs-product-state="unavailable">
+                <div class="prod-block-container">
+                  <div class="contact-container">
+                    <h2>Este produto est&aacute; indispon&iacute;vel</h2>
+                    <p>Seja notificado assim que o produto estiver dispon&iacute;vel!</p>
+                    <div class="contact-message-container">
+                      <div class="close-button" onclick="this.parentNode.setAttribute('style', 'display: none; opacity: 0;')">
+                        <span data-wsjs-icon="close"></span>
+                      </div>
+                      <div class="contact-message"></div>
+                    </div>
+            
+                    <form id="contact-form" data-wsjs-contact="container" onsubmit="return wsMain.modules['pag-contact'].sendContactForm()">
+                      <fieldset class="contact-form-top">
+                        <div>
+                          <label for="name">Nome</label>
+                          <input id="name" data-wsjs-contact="Nome" type="text" maxlength="50" required placeholder="Seu nome"/>
+                        </div>
+                        <div>
+                          <label for="email">E-mail</label>
+                          <input id="email" data-wsjs-contact="E-mail" type="email" maxlength="50" required placeholder="Seu e-mail"/>
+                        </div>
+                        <div>
+                          <label for="cell">Celular</label>
+                          <input id="cell" data-wsjs-contact="Telefone" type="text" required placeholder="(11) 98765-4321"/>
+                        </div>
+                        <!-- <div>
+                          <label for="title">Assunto*</label>
+                          <input id="title" data-wsjs-contact="Assunto" type="text" placeholder="Assunto" required/>
+                        </div> -->
+                      </fieldset>
+                      <fieldset class="contact-form-bottom">
+                        <div>
+                          <label for="message">Mensagem</label>
+                          <textarea id="message" data-wsjs-contact="Messagem" maxlength="1000" placeholder="Digite sua mensagem" required></textarea>
+                        </div>
+            
+                        <input class="button-main" type="submit" value="Enviar">
+            
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </section>
+  
+              <section data-wsjs-product-state="consult">
+                <div class="prod-block-container">
+                  <div class="contact-container">
+                    <h2>Pre&ccedil;o sob consulta</h2>
+                    <div class="contact-message-container">
+                      <div class="close-button" onclick="this.parentNode.setAttribute('style', 'display: none; opacity: 0;')">
+                        <span data-wsjs-icon="close"></span>
+                      </div>
+                      <div class="contact-message"></div>
+                    </div>
+            
+                    <form id="contact-form" data-wsjs-contact="container" onsubmit="return wsMain.modules['pag-contact'].sendContactForm()">
+                      <fieldset class="contact-form-top">
+                        <div>
+                          <label for="name">Nome</label>
+                          <input id="name" data-wsjs-contact="Nome" type="text" maxlength="50" required placeholder="Seu nome"/>
+                        </div>
+                        <div>
+                          <label for="email">E-mail</label>
+                          <input id="email" data-wsjs-contact="E-mail" type="email" maxlength="50" required placeholder="Seu e-mail"/>
+                        </div>
+                        <div>
+                          <label for="cell">Celular</label>
+                          <input id="cell" data-wsjs-contact="Telefone" type="text" required placeholder="(11) 98765-4321"/>
+                        </div>
+                        <!-- <div>
+                          <label for="title">Assunto*</label>
+                          <input id="title" data-wsjs-contact="Assunto" type="text" placeholder="Assunto" required/>
+                        </div> -->
+                      </fieldset>
+                      <fieldset class="contact-form-bottom">
+                        <div>
+                          <label for="message">Mensagem</label>
+                          <textarea id="message" data-wsjs-contact="Messagem" maxlength="1000" placeholder="Digite sua mensagem" required></textarea>
+                        </div>
+            
+                        <input class="button-main" type="submit" value="Enviar">
+            
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </section>
+  
+              <section data-wsjs-product-state="login">
+                  <div class="prod-block-container prod-info-login">
+                      <h2>Pre&ccedil;o ap&oacute;s o login</h2>
+                      <p>Lorem ipsum dolor sit amet. Eum minu boriosam aut ódio Lorem ipsum dolor sit ipsum dolor sited</p>
+                      <button class="button-third">Fazer Login</button>
+                      <button class="button-third">Cadastrar-se</button>
+                  </div>
+              </section>
+          </div>
+      </div>
+  </section>
+
+  <div class="modal-div" data-wsjs-force="none" data-wsjs-product="modal" data-wsjs-slide=""></div>
+</div>
