@@ -141,6 +141,31 @@ const createMod = async () => {
   console.log('Módulo criado com sucesso'.green.bold)
 }
 
+const updateDefaultMods = async () => {
+  let configs = JSON.parse(fs.readFileSync('./sys/sys.json', 'utf-8'));
+  let donwloadMods = async (token) => {
+    let response = await axios(wsEndpoint + 'lojas/dados/modules/?TOKEN=' + token)
+    return response.data;
+  }
+
+  let defaultMods = await donwloadMods(configs.token);
+  let defaultModsPath = './sys/default-modules/';
+
+  try {
+    fs.mkdirSync(defaultModsPath);
+  } catch(_) {}
+
+  defaultMods.forEach(mod => {
+    if (!fs.existsSync(defaultModsPath + mod.name)) fs.mkdirSync(defaultModsPath + mod.name);
+    if (!fs.existsSync(defaultModsPath + mod.name + '/' + mod.version + '/')) fs.mkdirSync(defaultModsPath + mod.name + '/' + mod.version + '/');
+    if (mod.js) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.js', mod.js);
+    if (mod.css) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.css', mod.css);
+    if (mod.hmtl) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.html', mod.html);
+  });
+
+  console.log('\nMódulos Padrões Atualizados com Sucesso!\n'.green.bold);
+}
+
 
 
 const listMods = async (arr) => {
@@ -171,24 +196,28 @@ const intiateMods = async () => {
     saveUpdate(actualConfigs);
   }
 
-  let arrChoices = [      
+  let arrChoices = [
+    {
+      name: 'Atualizar Módulos Padrões',
+      value: 0
+    },
     {
       name: 'Criar Módulo Personalizado',
-      value: 0
+      value: 1
     }
   ]
 
   if (actualConfigs.modulos_loja.length > 0) {
     arrChoices.push({
       name: 'Exibir Módulos Personalizados',
-      value: 1
+      value: 2
     })
   }
 
   if (actualConfigs.modulos.length > 0) {
     arrChoices.push({
       name: 'Exibir Módulos Padrões',
-      value: 2
+      value: 3
     })
   }
 
@@ -202,9 +231,10 @@ const intiateMods = async () => {
   let response = await new Inquirer.prompt(consoleQuest)
   let modOption = response.modOption;
 
-  if (modOption == 0) return await createMod();
-  if (modOption == 1) return await listMods(actualConfigs.modulos_loja);
-  if (modOption == 2) return await listMods(actualConfigs.modulos);
+  if (modOption == 0) return await updateDefaultMods();
+  if (modOption == 1) return await createMod();
+  if (modOption == 2) return await listMods(actualConfigs.modulos_loja);
+  if (modOption == 3) return await listMods(actualConfigs.modulos);
 
   return await listGroups(groupsArr);
 }

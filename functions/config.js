@@ -1,5 +1,10 @@
 let pullFunc = require('./pull').default;
 
+let donwloadMods = async (token) => {
+  let response = await axios(wsEndpoint + 'lojas/dados/modules/?TOKEN=' + token)
+  return response.data;
+}
+
 module.exports = {
   default: async (token) => {
         try {
@@ -35,8 +40,21 @@ module.exports = {
             fs.mkdirSync(pathToCreate + '/sys')
             fs.writeFileSync(pathToCreate + '/sys/sys.json', JSON.stringify(objConfig))
 
-            copyFolderRecursiveSync(__dirname + '/../default-modules', pathToCreate + '/sys/')
+            let defaultMods = await donwloadMods(token);
+            let defaultModsPath = pathToCreate + '/sys/default-modules/';
 
+            fs.mkdirSync(defaultModsPath);
+
+            defaultMods.forEach(mod => {
+              if (!fs.existsSync(defaultModsPath + mod.name)) {
+                fs.mkdirSync(defaultModsPath + mod.name);
+              }
+              fs.mkdirSync(defaultModsPath + mod.name + '/' + mod.version + '/');
+              if (mod.js) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.js', mod.js);
+              if (mod.css) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.css', mod.css);
+              if (mod.hmtl) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.html', mod.html);
+            });
+            
             console.log("\n**************************".yellow);
             console.log("!Atenção!".yellow.bold);
             if (jsonRetorno.tipo == "Padrao") {
