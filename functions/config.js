@@ -52,7 +52,7 @@ module.exports = {
               fs.mkdirSync(defaultModsPath + mod.name + '/' + mod.version + '/');
               if (mod.js) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.js', mod.js);
               if (mod.css) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.css', mod.css);
-              if (mod.hmtl) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.html', mod.html);
+              if (mod.html) fs.writeFileSync(defaultModsPath + mod.name + '/' + mod.version + '/' + mod.name + '.html', mod.html);
             });
             
             console.log("\n**************************".yellow);
