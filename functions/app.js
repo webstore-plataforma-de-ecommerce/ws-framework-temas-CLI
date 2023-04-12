@@ -39,43 +39,35 @@ function compileAll(vrf) {
             console.log("\nCódigo da loja: ".bold + LOJA.green.bold);
         }
 
-        var urlComplete = "";
+        let urlComplete = "";
         if (pageURL != "/") {
             urlComplete = pageURL.replace("/" + objJ.loja_nome, "");
         }
 
-        if (urlComplete != "" || 1 == 1) {
 
-            if (objJ.dominio.indexOf("lojas.webstore") >= 0 || objJ.dominio.indexOf("lojamodelolocal") >= 0) { protocolo = "http://"; }
+      if (objJ.dominio.indexOf("lojas.webstore") >= 0 || objJ.dominio.indexOf("lojamodelolocal") >= 0) protocolo = "http://"
 
-            axios
-                .post(protocolo + objJ.dominio + urlComplete + "?edicao_remota=true&token=" + LOJA, {
-                    Html_index: index,
-                    Html_listagem: listagem,
-                    Html_sem_direita: sem_direita,
-                    Html_produto_detalhes: produto_detalhes,
-                    Html_head: head,
-                    Html_body: body_end,
-                    Html_topo: topo,
-                    Html_barra: barra,
-                    Html_esquerda: esquerda,
-                    Html_direita: direita,
-                    Html_rodape: rodape,
-                    Html_complemento: complemento
-                })
-                .then(res => {
-                    showPage_step2(res.data, vrf);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-        } else {
-
-            showPage_step2("", vrf);
-
-        }
-
+      axios
+        .post(protocolo + objJ.dominio + urlComplete + "?edicao_remota=true&token=" + LOJA, {
+            Html_index: index,
+            Html_listagem: listagem,
+            Html_sem_direita: sem_direita,
+            Html_produto_detalhes: produto_detalhes,
+            Html_head: head,
+            Html_body: body_end,
+            Html_topo: topo,
+            Html_barra: barra,
+            Html_esquerda: esquerda,
+            Html_direita: direita,
+            Html_rodape: rodape,
+            Html_complemento: complemento
+        })
+        .then(res => {
+            showPage_step2(res.data, vrf);
+        })
+        .catch(error => {
+            console.error(error);
+        });
     } catch (e) {
         console.log(e.message);
     }
@@ -365,6 +357,7 @@ module.exports = {
         axios(wsEndpoint + '/lojas/dados/dadosloja/?LV_ID=' + LOJA)
             .then(response => {
                 objJ = response.data;
+                if (response.data == 'Loja não localizada.' || !response.status) throw response.data;
                 compileAll(true);
 
                 liveServer.start({
@@ -378,13 +371,13 @@ module.exports = {
                   middleware: [
                       (req,res,next) => {
                           let arrUrl = req.url.split('/');
-                          if ((arrUrl.length == 0 || arrUrl.length == 1) || (arrUrl[1] != 'css' && arrUrl[1] != 'js' && arrUrl[1] != 'carrinhoAJAX')) {
+                          if ((arrUrl.length == 0 || arrUrl.length == 1) || (arrUrl[1] != 'css' && arrUrl[1] != 'cdn-cgi' && arrUrl[1] != 'js' && arrUrl[1] != 'carrinhoAJAX' && arrUrl[1] != 'CheckoutSmart')) {
                               if (pageURL != req.url) {
-                                  pageURL = req.url;
-                                  compileAll();
+                                pageURL = req.url;
+                                compileAll(true);
                               }
                           }
-                          setTimeout(() => {next()}, 100)
+                          setTimeout(() => {next()}, 1000)
                       }
                   ]
                 });
