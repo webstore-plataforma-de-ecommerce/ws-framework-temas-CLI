@@ -42,16 +42,15 @@ module.exports = {
 
       if (fs.existsSync(pathToCreate)) throw 'Já existe uma pasta com o nome deste tema no diretório atual'
 
-      if (jsonRetorno['git_repo']) {
+      if (jsonRetorno['git_repo'] && jsonRetorno['git_repo'] != '') {
         if (
           !(await gitFunctions.verifyGit())
           ||
-          !(await gitFunctions.verifyPermission(jsonRetorno['git_repo']))
+          !(await gitFunctions.verifyPermission(jsonRetorno['git_repo'], token))
         ) return;
       }
 
       fs.mkdirSync(pathToCreate)
-      // gitFunctions.teste(pathToCreate);
       fs.mkdirSync(pathToCreate + '/sys')
       fs.writeFileSync(pathToCreate + '/sys/sys.json', JSON.stringify(objConfig, false, 2))
 
@@ -73,7 +72,6 @@ module.exports = {
       console.log("\n**************************".yellow);
       console.log("!Atenção!".yellow.bold);
       if (jsonRetorno.tipo == "Padrao") {
-          console.log("!Atenção!".yellow.bold);
           console.log("Você está personalizando um tema " + "padrão".bold +". Modificacões em módulos não são replicáveis.");
           console.log("Caso deseje criar módulos personalizados solicite a criação de um tema personalizado seguindo as orientações de nosso manual.");
       } else {
@@ -91,8 +89,11 @@ module.exports = {
       console.log("_____________________________________\n");
       console.log("Processo concluído com sucesso".green.bold + " Execute " + '(ws pull)'.bold + " para baixar os dados para edicão.\n\n");
       
-      await gitFunctions.cloneRepo(jsonRetorno['git_repo'], pathToCreate + '/');
-      fs.renameSync(gitFunctions.gitPath(jsonRetorno['git_repo'], pathToCreate + '/') + '/', pathToCreate + '/layout/');        
+    
+      if (jsonRetorno['git_repo'] && jsonRetorno['git_repo'] != '') {
+        await gitFunctions.cloneRepo(jsonRetorno['git_repo'], pathToCreate + '/');
+        fs.renameSync(gitFunctions.gitPath(jsonRetorno['git_repo'], pathToCreate + '/') + '/', pathToCreate + '/layout/');        
+      }
 
       pullFunc(pathToCreate, true);
 

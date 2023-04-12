@@ -1,6 +1,5 @@
 const util = require('node:util');
 const exec = util.promisify(require('node:child_process').exec);
-const { spawn } = require('node:child_process');
 
 async function verifyGit() {
   try {
@@ -29,8 +28,12 @@ async function cloneRepo(repo, path, bare) {
   }
 }
 
-async function verifyPermission(repo) {
-  return await cloneRepo(repo, actualPath + '/', true);
+async function verifyPermission(repo, token) {
+  let path = actualPath + '/teste' + token + '/';
+  fs.mkdirSync(path);
+  const permission = await cloneRepo(repo, path, true);
+  fs.rmdirSync(path)
+  return permission;
 }
 
 async function verifyPush(gitPath) {
@@ -52,11 +55,10 @@ async function gitPush(commitMessage = 'updating files') {
   }
   try {
     const { stdout, stderr } = await exec(`git commit "${gitPath}" --message="${commitMessage}" && git push`, { cwd: gitPath })
-    console.log('teste1', stdout)
-    console.log('teste2', stderr)
-
+    console.log(stdout)
+    console.log(stderr)
   } catch(err) {
-    console.log('teste3', err)
+    console.log(err);
     return false;
   }
 }

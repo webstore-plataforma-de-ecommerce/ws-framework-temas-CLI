@@ -31,7 +31,7 @@ module.exports = {
         }
       
         let response = await new Inquirer.prompt(consoleQuest)
-        gitFunctions.gitPush(response.commitMessage);
+        await gitFunctions.gitPush(response.commitMessage.toString());
       }
 
 
