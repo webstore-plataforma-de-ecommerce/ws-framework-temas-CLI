@@ -3,7 +3,7 @@ const exec = util.promisify(require('node:child_process').exec);
 
 async function verifyGit() {
   try {
-    const {stdout, stderr } = await exec(`git -v`)
+    const {stdout, stderr } = await exec(`git --version`)
     if (stdout.indexOf('git version') != -1) return true;
     else throw '';
   } catch(err) {
