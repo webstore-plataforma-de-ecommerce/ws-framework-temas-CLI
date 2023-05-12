@@ -50,80 +50,49 @@ module.exports = {
                 console.log("Comente códigos com /* comentarios */.\n");
             }
 
-            var modulosLoja = [];
+            let modulosLoja = [];
 
-            if (objConfig.tipo == "Personalizado") {
+            if (configJs.modulos_loja) {
 
-                if (configJs.modulos_loja) {
+                if (configJs.modulos_loja.length > 30) return console.log("Voce nao deve usar mais do que 30 modulos personalizados para um tema".yellow);
 
-                    if (configJs.modulos_loja.length > 30) {
-                        console.log("Voce nao deve usar mais do que 30 modulos personalizados para um tema".yellow);
-                        return;
-                    }
-
-                    for (var i = 0; i < configJs.modulos_loja.length; i++) {
-                        let actualMod = configJs.modulos_loja[i];
-
-                        let moduloHtml = getModuleString(actualMod, 'html', 'custom')
-                        let moduloCss = getModuleString(actualMod, 'css', 'custom')
-                        let moduloJs = getModuleString(actualMod, 'js', 'custom')
-
-                        var modulo = {
-                            nome: configJs.modulos_loja[i].nome,
-                            etapa: configJs.modulos_loja[i].etapa,
-                            moduloHtml: moduloHtml,
-                            moduloCss: moduloCss,
-                            moduloJs: moduloJs,
-                        }
-
-                        modulosLoja.push(modulo);
-
-                    }
-
-                }
-
-            } else {
-
-                if (configJs.modulos_loja) {
-
-                    if (configJs.modulos_loja.length > 0) {
-                        console.log("ATENCAO".yellow.bold);
-                        console.log("****************************");
-                        console.log("Voce esta usando modulos personalizados em um tema padrao.");
-                        console.log("Para criar modulos, utilize um tema personalizado.");
-                        console.log("Acesse nosso manual e verifique como seguir.");
-                        console.log(" ");
-                        return;
-                    }
-
+                for (let i = 0; i < configJs.modulos_loja.length; i++) {
+                    let actualMod = configJs.modulos_loja[i];
+                    modulosLoja.push({
+                      nome: actualMod.nome,
+                      etapa: actualMod.etapa,
+                      moduloHtml: getModuleString(actualMod, 'html', 'custom'),
+                      moduloCss: getModuleString(actualMod, 'css', 'custom'),
+                      moduloJs: getModuleString(actualMod, 'js', 'custom'),
+                    })
                 }
 
             }
+            
+            let postData = {
 
-            var postData = {
+              estrutura_index: index,
+              estrutura_listagem: listagem,
+              estrutura_outras_paginas: sem_direita,
+              estrutura_pagina_produto: produto_detalhes,
 
-                estrutura_index: index,
-                estrutura_listagem: listagem,
-                estrutura_outras_paginas: sem_direita,
-                estrutura_pagina_produto: produto_detalhes,
+              include_head: head,
+              include_body_end: body,
 
-                include_head: head,
-                include_body_end: body,
+              include_topo: topo,
+              include_barra: barra,
+              include_esquerda: esquerda,
+              include_direita: direita,
+              include_rodape: rodape,
+              include_complemento: complemento,
 
-                include_topo: topo,
-                include_barra: barra,
-                include_esquerda: esquerda,
-                include_direita: direita,
-                include_rodape: rodape,
-                include_complemento: complemento,
+              assets_css: css,
+              assets_js: js,
 
-                assets_css: css,
-                assets_js: js,
+              modulos_loja: modulosLoja,
 
-                modulos_loja: modulosLoja,
-
-                config: JSON.stringify(configJs)
-            }
+              config: JSON.stringify(configJs)
+          }
 
             axios
                 .post(wsEndpoint + 'lojas/dados/deploy/?TOKEN=' + TOKEN, postData)
