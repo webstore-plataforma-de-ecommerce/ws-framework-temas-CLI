@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+require('colors')
 global.axios = require('axios')
 global.fs = require('fs')
 global.path = require('path')
@@ -7,6 +8,7 @@ global.wsEndpoint = "https://adminloja.webstore.net.br/"
 global.systemToken = 'DEV12354654698798745646513218'
 global.actualPath = process.cwd()
 global.Inquirer = require('inquirer')
+global.yargs = require("yargs")
 global.confirmOperation = async (action = 'continuar') => {
   let consoleQuest = {
     type: 'confirm',
@@ -29,7 +31,6 @@ global.copyFileSync = (source, target) => {
 
     fs.writeFileSync(targetFile, fs.readFileSync(source));
 }
-
 global.copyFolderRecursiveSync = (source, target) => {
     var files = [];
 
@@ -53,10 +54,6 @@ global.copyFolderRecursiveSync = (source, target) => {
     }
 }
 
-require('colors')
-
-const yargs = require("yargs");
-
 let objFunctions = {}
 
 fs.readdirSync(__dirname + '/../functions/').forEach(name => objFunctions[name.split(".")[0]] = require(__dirname + '/../functions/' + name).default);
@@ -65,6 +62,7 @@ let insideATheme = false;
 try {
   fs.statSync('./sys/sys.json')
   insideATheme = true
+  global.sysJSON = JSON.parse(fs.readFileSync('./sys/sys.json', 'utf-8'));
 } catch(_) {}
 
 const options = yargs
