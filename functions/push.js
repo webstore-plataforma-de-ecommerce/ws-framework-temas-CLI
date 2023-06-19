@@ -93,13 +93,7 @@ module.exports = {
               assets_js: js,
 
               modulos_loja: modulosLoja,
-
-              config: JSON.stringify(configJs)
-          }
-
-
-              modulos_loja: modulosLoja,
-
+              
               config: JSON.stringify(configJs)
           }
 
