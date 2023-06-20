@@ -34,6 +34,7 @@ module.exports = {
         await gitFunctions.gitPush(response.commitMessage.toString());
       }
 
+      
 
       try {
           var configJs = JSON.parse(fs.readFileSync('./layout/config/config.json'));
@@ -52,6 +53,16 @@ module.exports = {
 
           var head = (fs.readFileSync('./layout/include/add_tags/head.html').toString());
           var body = (fs.readFileSync('./layout/include/add_tags/body.html').toString());
+
+          var css = (fs.readFileSync('./layout/assets/folha.css').toString());
+          var js = (fs.readFileSync('./layout/assets/functions.js').toString());
+
+          if (js.indexOf("//") >= 0) {
+              console.log("\nATENCÃO".yellow.bold);
+              console.log("Não utilize // para comentar linhas no javascript.");
+              console.log("Isso pode gerar problemas após o script ser minificado.");
+              console.log("Comente códigos com /* comentarios */.\n");
+          }
 
             let modulosLoja = [];
 
