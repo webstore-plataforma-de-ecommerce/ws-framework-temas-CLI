@@ -82,6 +82,15 @@ module.exports = {
                 }
 
             }
+
+            function replaceDefault(id, value) {
+              for (const pref of configJs.grupoPreferencias.flatMap(g => g.variaveis)) {
+                if (pref.id === id) return pref.padrao = value;
+              }
+            }
+            
+            configJs.PreferenciasSets.forEach(pref => replaceDefault(pref.id, pref.valor));
+            
             
             let postData = {
 
