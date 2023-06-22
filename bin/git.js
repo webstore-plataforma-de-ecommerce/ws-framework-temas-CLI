@@ -55,8 +55,8 @@ async function gitPush(commitMessage = 'updating files') {
   }
   try {
     const { stdout, stderr } = await exec(`git add "${gitPath}" && git commit --message="${commitMessage}" && git push`, { cwd: gitPath })
-    console.log(stdout)
-    console.log(stderr)
+    console.log(stdout, '\n', stderr);
+    return true
   } catch(err) {
     console.log(err);
     return false;

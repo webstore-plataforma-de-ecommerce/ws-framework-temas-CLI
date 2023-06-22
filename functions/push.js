@@ -31,7 +31,8 @@ module.exports = {
         }
       
         let response = await new Inquirer.prompt(consoleQuest)
-        await gitFunctions.gitPush(response.commitMessage.toString());
+        let data = await gitFunctions.gitPush(response.commitMessage.toString());
+        if (!data) return console.log('Erro inesperado no GIT'.red.bold);
       }
 
       
