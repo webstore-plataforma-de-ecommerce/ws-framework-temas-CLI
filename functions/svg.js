@@ -18,7 +18,6 @@ module.exports = {
       return;
     });
     
-    let fileToPrint = arr.join('');
-    fs.writeFileSync('Icones.txt', fileToPrint);
+    fs.writeFileSync('Icones.txt', arr.join(''));
   }
 }
