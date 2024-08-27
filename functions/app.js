@@ -18,6 +18,8 @@ function compileAll(vrf) {
     let index = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_index.html').toString());
     let listagem = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_listagem.html').toString());
     let sem_direita = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_outras_paginas.html').toString());
+    let carrinho = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_carrinho.html').toString());
+    let checkout = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_checkout.html').toString());
     let produto_detalhes = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_pagina_produto.html').toString());
     let topo = htmlModulosTagsHtml(fs.readFileSync('./layout/include/topo.html').toString());
     let barra = htmlModulosTagsHtml(fs.readFileSync('./layout/include/barra.html').toString());
@@ -52,6 +54,8 @@ function compileAll(vrf) {
             Html_index: index,
             Html_listagem: listagem,
             Html_sem_direita: sem_direita,
+            Html_carrinho: carrinho,
+            Html_checkout: checkout,
             Html_produto_detalhes: produto_detalhes,
             Html_head: head,
             Html_body: body_end,

@@ -43,6 +43,8 @@ module.exports = {
           var index = (fs.readFileSync('./layout/estrutura_index.html').toString());
           var listagem = (fs.readFileSync('./layout/estrutura_listagem.html').toString());
           var sem_direita = (fs.readFileSync('./layout/estrutura_outras_paginas.html').toString());
+          var carrinho = (fs.readFileSync('./layout/estrutura_carrinho.html').toString());
+          var checkout = (fs.readFileSync('./layout/estrutura_checkout.html').toString());
           var produto_detalhes = (fs.readFileSync('./layout/estrutura_pagina_produto.html').toString());
 
           var topo = (fs.readFileSync('./layout/include/topo.html').toString());
@@ -98,6 +100,8 @@ module.exports = {
               estrutura_index: index,
               estrutura_listagem: listagem,
               estrutura_outras_paginas: sem_direita,
+              estrutura_carrinho: carrinho,
+              estrutura_checkout: checkout,
               estrutura_pagina_produto: produto_detalhes,
 
               include_head: head,
