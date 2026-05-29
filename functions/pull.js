@@ -55,6 +55,10 @@ module.exports = {
             fs.writeFileSync(dir + '/layout/estrutura_outras_paginas.html', objJ.sem_direita);
             fs.writeFileSync(dir + '/layout/estrutura_carrinho.html', objJ.carrinho);
             fs.writeFileSync(dir + '/layout/estrutura_checkout.html', objJ.checkout);
+            fs.writeFileSync(dir + '/layout/estrutura_login.html', objJ.login);
+            fs.writeFileSync(dir + '/layout/estrutura_cadastro.html', objJ.cadastro);
+            fs.writeFileSync(dir + '/layout/estrutura_area_cliente.html', objJ.area_cliente);
+            fs.writeFileSync(dir + '/layout/estrutura_institucional.html', objJ.institucional);
     
             let modulos_loja_min = [];
     

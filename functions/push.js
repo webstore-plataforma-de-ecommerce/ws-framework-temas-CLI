@@ -46,6 +46,10 @@ module.exports = {
           var carrinho = (fs.readFileSync('./layout/estrutura_carrinho.html').toString());
           var checkout = (fs.readFileSync('./layout/estrutura_checkout.html').toString());
           var produto_detalhes = (fs.readFileSync('./layout/estrutura_pagina_produto.html').toString());
+          var login = (fs.readFileSync('./layout/estrutura_login.html').toString());
+          var cadastro = (fs.readFileSync('./layout/estrutura_cadastro.html').toString());
+          var area_cliente = (fs.readFileSync('./layout/estrutura_area_cliente.html').toString());
+          var institucional = (fs.readFileSync('./layout/estrutura_institucional.html').toString());
 
           var topo = (fs.readFileSync('./layout/include/topo.html').toString());
           var barra = (fs.readFileSync('./layout/include/barra.html').toString());
@@ -103,6 +107,10 @@ module.exports = {
               estrutura_carrinho: carrinho,
               estrutura_checkout: checkout,
               estrutura_pagina_produto: produto_detalhes,
+              estrutura_login: login,
+              estrutura_cadastro: cadastro,
+              estrutura_area_cliente: area_cliente,
+              estrutura_institucional: institucional,
 
               include_head: head,
               include_body_end: body,

@@ -21,6 +21,10 @@ function compileAll(vrf) {
     let carrinho = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_carrinho.html').toString());
     let checkout = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_checkout.html').toString());
     let produto_detalhes = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_pagina_produto.html').toString());
+    let login = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_login.html').toString());
+    let cadastro = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_cadastro.html').toString());
+    let area_cliente = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_area_cliente.html').toString());
+    let institucional = htmlModulosTagsHtml(fs.readFileSync('./layout/estrutura_institucional.html').toString());
     let topo = htmlModulosTagsHtml(fs.readFileSync('./layout/include/topo.html').toString());
     let barra = htmlModulosTagsHtml(fs.readFileSync('./layout/include/barra.html').toString());
     let esquerda = htmlModulosTagsHtml(fs.readFileSync('./layout/include/esquerda.html').toString());
@@ -57,6 +61,10 @@ function compileAll(vrf) {
             Html_carrinho: carrinho,
             Html_checkout: checkout,
             Html_produto_detalhes: produto_detalhes,
+            Html_login: login,
+            Html_cadastro: cadastro,
+            Html_area_cliente: area_cliente,
+            Html_institucional: institucional,
             Html_head: head,
             Html_body: body_end,
             Html_topo: topo,
